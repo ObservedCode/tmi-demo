@@ -8,6 +8,7 @@ class ChatModule {
         this.messages = document.querySelector(this.mountNode);
         this.bindEventListeners();
     }
+
     bindEventListeners() {
         this.client.on('message', (channel, tags, message, self) => {
             console.log({ channel, tags, message, self });
@@ -17,16 +18,16 @@ class ChatModule {
             let utterance;
             switch (possibleCommand) {
                 case "!cow":
-                    utterance = new SpeechSynthesisUtterance("moo");
+                    utterance = new SpeechSynthesisUtterance("cow say moo");
                     speechSynthesis.speak(utterance);
                     break;
 
                 case "!chicken":
-                    utterance = new SpeechSynthesisUtterance("bock bock");
+                    utterance = new SpeechSynthesisUtterance("chicken say bock bock");
                     speechSynthesis.speak(utterance);
 
                 default:
-                    utterance = new SpeechSynthesisUtterance(message);
+                    utterance = new SpeechSynthesisUtterance(`${displayName === "BetterLvck" ? "BetterLuck" : displayName} says ${message}`);
                     speechSynthesis.speak(utterance);
                     break;
             }
@@ -34,7 +35,6 @@ class ChatModule {
     }
 
     renderBillIcon(msg) {
-        console.log(typeof msg)
         return msg.replace(/bill/ig, `<img src="http://www.fillmurray.com/30/30" />`)
     }
 
